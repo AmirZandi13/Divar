@@ -3,7 +3,10 @@
 namespace App\Socialite\Sms;
 
 
-class Sms extends BaseSms
+use App\Socialite\SocialiteInterface;
+use App\User;
+
+class Sms extends BaseSms implements SocialiteInterface
 {
 
 	protected $status = [
@@ -15,13 +18,15 @@ class Sms extends BaseSms
 		6 => 'success'
  	];
 
-	public function sendSingleSms(string $destination , string $message)
+	public function sendSingle(array $receiver , string $message)
 	{
 		$this->setMessage($message);
 
 		$this->setFunction('sendsms');
 
-		$this->setDestination($destination);
+		dd($receiver);
+
+//		$this->setDestination($destination);
 
 		return $this->execCurl();
 	}
@@ -50,4 +55,8 @@ class Sms extends BaseSms
 		return $result;
 	}
 
+	public function sendGroup()
+	{
+		// TODO: Implement sendGroup() method.
+	}
 }

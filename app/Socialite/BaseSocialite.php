@@ -8,7 +8,7 @@ use App\Webservice;
 class BaseSocialite
 {
 
-	protected $webservice = Webservice::class;
+	protected $webservice = User::class;
 
 	protected $type = 'Sms';
 
@@ -19,6 +19,7 @@ class BaseSocialite
 	protected $sender = 'system';
 
 	protected $receiver = User::class;
+
 
 	/**
 	 * @return string
@@ -114,5 +115,21 @@ class BaseSocialite
 	public function setReceiver(string $receiver)
 	{
 		$this->receiver = $receiver;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getSoc(): string
+	{
+		return $this->soc;
+	}
+
+	/**
+	 * @param string $soc
+	 */
+	public function setSoc(string $soc)
+	{
+		$this->soc = $soc;
 	}
 }

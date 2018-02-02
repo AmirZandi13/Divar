@@ -26,7 +26,7 @@ class BaseSms
 
 	protected $headers = [];
 
-	protected $msgId= '';
+	protected $msgId = '';
 
 
 	public function __construct()
@@ -243,11 +243,9 @@ class BaseSms
 
 	protected function params()
 	{
-		if ($this->getFunction() == 'sendsms')
-		{
+		if ($this->getFunction() == 'sendsms') {
 			return 'username=' . $this->getUsername() . '&password=' . $this->getPassword() . '&source=' . $this->getSource() . '&destination=' . $this->getDestination() . '&message=' . $this->getUrlTrimEncode();
-		}elseif ($this->getFunction() == 'msgstatus')
-		{
+		} else if ($this->getFunction() == 'msgstatus') {
 			return 'username=' . $this->getUsername() . '&password=' . $this->getPassword() . '&msgid=' . $this->getMsgId();
 		}
 
@@ -279,13 +277,11 @@ class BaseSms
 	{
 		$stringDestinations = "";
 
-		foreach ($destinations as $key  => $destination)
-		{
-			if ($key == 0)
-			{
+		foreach ($destinations as $key => $destination) {
+			if ($key == 0) {
 				$stringDestinations .= $destination;
-			}else {
-				$stringDestinations .= '-'.$destination;
+			} else {
+				$stringDestinations .= '-' . $destination;
 			}
 		}
 

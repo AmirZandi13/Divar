@@ -6,8 +6,8 @@ use App\Advertise;
 use App\Category;
 use App\Location;
 use App\User;
-use App\view;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AdvertisesController extends Controller
 {
@@ -29,13 +29,37 @@ class AdvertisesController extends Controller
 		return redirect('/divar/tehran/all');
 	}
 
-	public function show($advertise_id)
+	public function show( int $advertise_id)
 	{
+		$user_id = auth()->user()['id'];
+
+		$this->saveAdvertiseToView($user_id , $advertise_id);
+
 		$advertise = Advertise::find($advertise_id);
 
 		$user = User::find($advertise->user_id);
 
 		return view('advertises.show' , compact('advertise' , 'user'));
+	}
+
+
+	public function saveAdvertiseToView($user , $advertise)
+	{
+		\App\Amir\view::create([
+			'user_id'      => $user ,
+			'advertise_id' => $advertise
+		]);
+
+
+	}
+
+	public function view()
+	{
+		$user_id = auth()->user()['id'];
+
+		$advertises = \App\Amir\view::where('user_id' , $user_id)->get();
+
+		dd($advertises);
 	}
 
 }

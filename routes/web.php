@@ -12,6 +12,10 @@
 */
 
 use App\Category;
+use App\Socialite\Email\Email;
+use App\Socialite\Sms\Sms;
+use App\Socialite\Socialite;
+use Illuminate\Support\Facades\Mail;
 
 Route::get('/userlogout' , function (){
 	auth()->logout();
@@ -50,6 +54,7 @@ Route::post('/user/advertise/store' , 'AdvertisesController@store');
 
 Route::get('/advertise/{advertise_id}' , 'AdvertisesController@show');
 
+Route::get('views' , 'AdvertisesController@view');
 
 
 
@@ -57,44 +62,20 @@ Route::get('/advertise/{advertise_id}' , 'AdvertisesController@show');
 
 
 
-
-
-
-
-
-
-
-
-//
-//Route::get('/node/node/node' , function (){
-//
-//	$root = Category::create(['name' => 'Desks and Chairs']);
-//	$child1 = $root->children()->create(['name' => 'Wood']);
-//	$child2 = $root->children()->create(['name' => 'Metal']);
-//
-//	$child3 = $child1->children()->create(['name' => 'Chair']);
-//	$child4 = $child2->children()->create(['name' => 'Desk']);
-//
-//$array = ['tehran' , 'shiraz' , 'yazd' , 'rasht' , 'esfahan' , 'arak' , 'noor' , 'amol' ];
-//
-//foreach ($array as $r)
-//{
-//	\App\Location::create([
-//		'name' => $r
-//	]);
-//}
-//
-//});
 
 Route::get('/sms' , function (){
 
-	$sender = new \App\Socialite\Sms\Sms();
+	$sender = new Socialite(Email::class , 'Email' , 'amir zandieh' , 'system' , \App\User::find(1));
 
-	dump($sender->messageStatus(1064229955));
-
-//	dump($sender->sendGroupSms(['09362919434' , '09354008609'] , 'peyman'));
+	dd($sender->socialite());
 
 });
 
+Route::get('/mail' , function (){
 
+	$user = \App\User::find(1);
 
+	Mail::to('pepesh33@yahoo.com')->send(new \App\Mail\SendEmail($user));
+
+	dd('email send successfully');
+});

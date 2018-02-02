@@ -1,15 +1,23 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: AmirZandieh
- * Date: 1/30/18
- * Time: 1:51 PM
- */
 
 namespace App\Socialite\Email;
 
 
-class Email
+use App\Socialite\Socialite;
+use App\Socialite\SocialiteInterface;
+use App\User;
+
+class Email extends BaseEmail implements SocialiteInterface
 {
 
+
+	public function sendSingle(array $receiver , string $message)
+	{
+		dd($receiver , $message);
+	}
+
+	public function sendGroup()
+	{
+		// TODO: Implement sendGroup() method.
+	}
 }

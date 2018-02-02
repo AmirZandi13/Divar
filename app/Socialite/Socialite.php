@@ -1,11 +1,11 @@
 <?php
 
-
 namespace App\Socialite;
-
 
 class Socialite extends BaseSocialite
 {
+
+	protected $socialite;
 
 	public function __construct($webservice , $type , $message , $sender , $receiver)
 	{
@@ -15,5 +15,14 @@ class Socialite extends BaseSocialite
 		$this->setSender($sender);
 		$this->setReceiver($receiver);
 	}
+
+	public function socialite()
+	{
+		$webservice = $this->getWebservice();
+		$this->socialite = new $webservice;
+		$reciever = json_decode($this->getReceiver() , true);
+		return $this->socialite->sendSingle($reciever , 'amir');
+	}
+
 
 }
